@@ -1,51 +1,66 @@
-// ===== FUNCTIONS =====
 
-// 1. Change background color
 function changeBackgroundColor() {
-  document.body.style.backgroundColor = "lightblue";
+    // Generates a valid hex color
+    const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    document.body.style.backgroundColor = randomColor;
 }
 
-// 2. Reset background color
+
 function resetBackgroundColor() {
-  document.body.style.backgroundColor = "white";
+    // Clears the style by setting it back to white/empty
+    document.body.style.backgroundColor = 'white';
 }
 
-// 3. Display key pressed
+
 function displayKeyPress(event) {
-  const keyDisplay = document.getElementById("keyDisplay");
-  keyDisplay.textContent = `Key Pressed: ${event.key}`;
+    const display = document.getElementById('keyDisplay');
+    if (display) {
+        // Updates display directly with the key value
+        display.textContent = `Key pressed: ${event.key}`;
+    }
 }
 
-// 4. Display user input (real-time)
+
 function displayUserInput() {
-  const input = document.getElementById("textInput").value;
-  const display = document.getElementById("textDisplay");
-  display.textContent = input;
+    const inputField = document.getElementById('userInput');
+    const outputDisplay = document.getElementById('outputDisplay');
+    if (inputField && outputDisplay) {
+        // Real-time update of text content
+        outputDisplay.textContent = inputField.value;
+    }
 }
 
 
-// ===== EVENT LISTENERS =====
+function init() {
+    const colorButton = document.getElementById('colorButton');
+    const inputField = document.getElementById('userInput');
 
-// Button click
-document.getElementById("colorBtn")
-  .addEventListener("click", changeBackgroundColor);
+    // Button Click -> Change Color
+    if (colorButton) {
+        colorButton.addEventListener('click', changeBackgroundColor);
+    }
 
-// Double click anywhere on body
-document.body
-  .addEventListener("dblclick", resetBackgroundColor);
+    // Body Double-Click -> Reset Color
+    document.body.addEventListener('dblclick', resetBackgroundColor);
 
-// Keyboard input
-document.addEventListener("keydown", displayKeyPress);
+    // Document Keydown -> Display Key
+    document.addEventListener('keydown', displayKeyPress);
 
-// Real-time typing
-document.getElementById("textInput")
-  .addEventListener("input", displayUserInput);
+    // Input Realtime -> Display User Input
+    if (inputField) {
+        inputField.addEventListener('input', displayUserInput);
+    }
+}
 
+// Ensure the script runs after HTML is loaded
+document.addEventListener('DOMContentLoaded', init);
 
-// ===== EXPORTS FOR TESTING =====
-module.exports = {
-  changeBackgroundColor,
-  resetBackgroundColor,
-  displayKeyPress,
-  displayUserInput
-};
+// Required for Jest testing environment
+if (typeof module !== 'undefined') {
+    module.exports = { 
+        changeBackgroundColor, 
+        resetBackgroundColor, 
+        displayKeyPress, 
+        displayUserInput 
+    };
+}
