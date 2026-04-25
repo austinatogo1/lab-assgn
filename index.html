@@ -2,16 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab: Event Listeners With JavaScript</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Lab: Event Listeners </h1>
-  <button id="colorBtn">Change Color</button>  <button id="resetColorButton">Reset Background Color</button>
-  <p id="keyDisplay">Press any key...</p>
-  <input type="text" id="textInput">
-  <p id="textDisplay"></p>
-  
+
+  <div class="container">
+    <h1>Event Listeners Lab</h1>
+
+    <!-- Task 1 & 2: Background Color -->
+    <section class="card" id="color-section">
+      <h2>Background Color</h2>
+      <p class="hint">Click to change · Double-click reset button to clear</p>
+      <div class="btn-row">
+        <button id="changeColorButton">Change Color</button>
+        <button id="resetColorButton">Reset Color</button>
+      </div>
+    </section>
+
+    <!-- Task 3: Key Press — ID must be keyPressDisplay -->
+    <section class="card" id="key-section">
+      <h2>Keyboard Input</h2>
+      <p class="hint">Press any key on your keyboard</p>
+      <p id="keyPressDisplay">Press any key...</p>
+    </section>
+
+    <!-- Task 4: Text Input — IDs must be textInput and textInputDisplay -->
+    <section class="card" id="input-section">
+      <h2>Text Input</h2>
+      <input type="text" id="textInput" placeholder="Type something here…">
+      <p id="textInputDisplay">Your input will be displayed here.</p>
+    </section>
+  </div>
+
   <script src="index.js"></script>
 </body>
 </html>

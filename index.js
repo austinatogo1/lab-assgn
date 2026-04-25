@@ -1,87 +1,74 @@
-
+/*  Task 1: changeBackgroundColor 
+*/
 function changeBackgroundColor() {
-    // The test specifically checks for "lightblue"
-    document.body.style.backgroundColor = "lightblue";
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
 
+/*Task 2: resetBackgroundColor 
+ */
 function resetBackgroundColor() {
-    // The test specifically checks for "white"
-    document.body.style.backgroundColor = "white";
+  document.body.style.backgroundColor = '';
 }
 
+/* Task 3: displayKeyPress(event)
+*/
 function displayKeyPress(event) {
-    const display = document.getElementById('keyDisplay');
-    if (display && event && event.key) {
-        // Test expects capital 'P' in "Pressed"
-        display.textContent = `Key Pressed: ${event.key}`;
-    }
+  if (!event || !event.key) return;
+  const display = document.getElementById('keyPressDisplay');
+  if (display) {
+    display.textContent = `Key pressed: ${event.key}`;
+  }
 }
 
+/* Task 4: displayUserInput
+ */
 function displayUserInput() {
-    const inputField = document.getElementById('textInput');
-    const outputDisplay = document.getElementById('textDisplay');
-    
-    if (inputField && outputDisplay) {
-        // Test expects JUST the value (e.g., "Hello"), no "You typed:" prefix
-        outputDisplay.textContent = inputField.value;
-    }
+  const inputField   = document.getElementById('textInput');
+  const outputDisplay = document.getElementById('textInputDisplay');
+  if (inputField && outputDisplay) {
+    outputDisplay.textContent = `You typed: ${inputField.value}`;
+  }
 }
 
-function init() {
-    const colorBtn = document.getElementById('colorBtn'); // Matches test ID
-    const inputField = document.getElementById('textInput');
-
-    if (colorBtn) {
-        colorBtn.addEventListener('click', changeBackgroundColor);
-    }
-    document.body.addEventListener('dblclick', resetBackgroundColor);
-    document.addEventListener('keydown', displayKeyPress);
-
-    if (inputField) {
-        inputField.addEventListener('input', displayUserInput);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', init);
-
-if (typeof module !== 'undefined') {
-    module.exports = { 
-        changeBackgroundColor, 
-        resetBackgroundColor, 
-        displayKeyPress, 
-        displayUserInput 
-    };
-}
-
-document.addEventListener('DOMContentLoaded', init);
-// Attach Event Listeners
+/* setupEventListeners 
+ */
 function setupEventListeners() {
-// Attach event listener to change background color when the button is clicked
-  document
-    .getElementById('changeColorButton')
-    .addEventListener('click', changeBackgroundColor)
+  // Test line 37: changeColorButton.click()
+  const changeColorButton = document.getElementById('changeColorButton');
+  if (changeColorButton) {
+    changeColorButton.addEventListener('click', changeBackgroundColor);
+  }
 
-  // Attach event listener to reset background color when the body is double-clicked
-  document
-    .getElementById('resetColorButton')
-    .addEventListener('dblclick', resetBackgroundColor)
+  const resetColorButton = document.getElementById('resetColorButton');
+  if (resetColorButton) {
+    resetColorButton.addEventListener('dblclick', resetBackgroundColor);
+  }
 
-  // Attach event listener to display key pressed when a key is pressed down
-  document.addEventListener('keydown', displayKeyPress)
+  document.addEventListener('keydown', displayKeyPress);
 
-  // Attach event listener to display user input in real-time as they type
-  document.getElementById('textInput').addEventListener('input', displayUserInput)
+  // Test line 82: textInput.dispatchEvent(new Event('input'))
+  const textInput = document.getElementById('textInput');
+  if (textInput) {
+    textInput.addEventListener('input', displayUserInput);
+  }
 }
 
-// Initialize event listeners when the DOM is loaded
-if (typeof window !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', setupEventListeners)
+setupEventListeners();
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', setupEventListeners);
 }
 
-module.exports = {
-  changeBackgroundColor,
-  resetBackgroundColor,
-  displayKeyPress,
-  displayUserInput,
-  setupEventListeners,
+/* ── CommonJS export for Jest ───────────────────────────── */
+if (typeof module !== 'undefined') {
+  module.exports = {
+    setupEventListeners,
+    changeBackgroundColor,
+    resetBackgroundColor,
+    displayKeyPress,
+    displayUserInput,
+  };
 }
